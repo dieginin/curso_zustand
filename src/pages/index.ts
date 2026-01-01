@@ -1,0 +1,6 @@
+export { BearPage } from "./01-basic/BearPage"
+export { PersonPage } from "./01-basic/PersonPage"
+export { JiraPage } from "./02-objects/JiraPage"
+export { WeddingInvitationPage } from "./03-slices/WeddingInvitationPage"
+export { LoginPage } from "./auth/LoginPage"
+export { Dashboard } from "./dashboard/DashBoardPage"
