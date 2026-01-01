@@ -1,6 +1,6 @@
 import { create, type StateCreator } from "zustand"
-import type { StateStorage } from "zustand/middleware"
-import { createJSONStorage, persist } from "zustand/middleware"
+import { persist } from "zustand/middleware"
+import { customStorage } from "../storages"
 
 interface PersonState {
   firstName: string
@@ -12,9 +12,7 @@ interface Actions {
   setLastName: (value: string) => void
 }
 
-type PersonStoreState = PersonState & Actions
-
-const storeAPI: StateCreator<PersonStoreState> = (set) => ({
+const storeAPI: StateCreator<PersonState & Actions> = (set) => ({
   firstName: "",
   lastName: "",
 
@@ -22,22 +20,9 @@ const storeAPI: StateCreator<PersonStoreState> = (set) => ({
   setLastName: (value: string) => set({ lastName: value }),
 })
 
-const sessionStorage: StateStorage = {
-  getItem: function (name: string): string | null | Promise<string | null> {
-    console.log("getItem", name)
-    return null
-  },
-  setItem: function (name: string, value: string): void | Promise<void> {
-    console.log("setItem", name, value)
-  },
-  removeItem: function (name: string): void | Promise<void> {
-    console.log("removeItem", name)
-  },
-}
-
-export const usePersonStore = create<PersonStoreState>()(
+export const usePersonStore = create<PersonState & Actions>()(
   persist(storeAPI, {
     name: "person-storage",
-    storage: createJSONStorage(() => sessionStorage),
+    storage: customStorage,
   })
 )
