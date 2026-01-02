@@ -4,7 +4,7 @@ import { useBearStore, usePersonStore } from "../../stores"
 import { WhiteCard } from "../../components"
 
 export const Dashboard = () => {
-  const totalBears = useBearStore((state) => state.computed.totalBears)
+  const totalBears = useBearStore((state) => state.totalBears)
   const firstName = usePersonStore((state) => state.firstName)
 
   return (
@@ -17,7 +17,7 @@ export const Dashboard = () => {
         <WhiteCard centered>
           <PawPrint size={50} className='text-indigo-600' />
           <h2>Osos</h2>
-          <p>{totalBears}</p>
+          <p>{totalBears()}</p>
         </WhiteCard>
 
         <WhiteCard centered>
