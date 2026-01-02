@@ -3,6 +3,8 @@ import type { Task, TaskStatus } from "../../interfaces"
 
 import type { DragEvent } from "react"
 import { SingleTask } from "./SingleTask"
+import classNames from "classnames"
+import { useTaskStore } from "../../stores"
 
 interface Props {
   title: string
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export const JiraTasks = ({ title, value, tasks }: Props) => {
+  const isDragging = useTaskStore((state) => !!state.draggingTaskId)
+
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
     console.log("onDragOver")
@@ -28,7 +32,10 @@ export const JiraTasks = ({ title, value, tasks }: Props) => {
 
   return (
     <div
-      className='text-black! relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]'
+      className={classNames(
+        "text-black! border-4 relative flex flex-col rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]",
+        { "border-blue-500 border-dotted": isDragging }
+      )}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDropEvent}
