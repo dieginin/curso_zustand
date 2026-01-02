@@ -2,6 +2,7 @@ import { create, type StateCreator } from "zustand"
 import type { Task, TaskStatus } from "../../interfaces"
 import { devtools } from "zustand/middleware"
 import { v4 as uuidV4 } from "uuid"
+
 interface TaskState {
   draggingTaskId?: string
   tasks: Record<string, Task>
