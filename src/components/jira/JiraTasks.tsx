@@ -1,4 +1,4 @@
-import { ArrowDownUp, CircleCheckBig, Ellipsis } from "lucide-react"
+import { CircleCheckBig, Ellipsis, Equal } from "lucide-react"
 
 interface Props {
   title: string
@@ -32,7 +32,7 @@ export const JiraTasks = ({ title }: Props) => {
             <p className='text-base font-bold text-navy-700'>Tarea número 1</p>
           </div>
           <span className=' h-6 w-6 text-navy-700 cursor-pointer'>
-            <ArrowDownUp />
+            <Equal />
           </span>
         </div>
 
@@ -41,7 +41,7 @@ export const JiraTasks = ({ title }: Props) => {
             <p className='text-base font-bold text-navy-700'>Tarea número 2</p>
           </div>
           <span className=' h-6 w-6 text-navy-700 cursor-pointer'>
-            <ArrowDownUp />
+            <Equal />
           </span>
         </div>
       </div>
