@@ -1,6 +1,7 @@
 import { CircleCheckBig, Ellipsis } from "lucide-react"
 import type { Task, TaskStatus } from "../../interfaces"
 
+import type { DragEvent } from "react"
 import { SingleTask } from "./SingleTask"
 
 interface Props {
@@ -10,8 +11,28 @@ interface Props {
 }
 
 export const JiraTasks = ({ title, value, tasks }: Props) => {
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log("onDragOver")
+  }
+
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log("onDragLeave")
+  }
+
+  const handleDropEvent = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log("onDrop", value)
+  }
+
   return (
-    <div className='text-black! relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]'>
+    <div
+      className='text-black! relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]'
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDropEvent}
+    >
       {/* Task Header */}
       <div className='relative flex flex-row justify-between'>
         <div className='flex items-center justify-center'>
