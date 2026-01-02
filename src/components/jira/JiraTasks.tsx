@@ -1,8 +1,11 @@
 import { CircleCheckBig, Ellipsis, Equal } from "lucide-react"
 
+import type { Task } from "../../interfaces"
+
 interface Props {
   title: string
   value: "pending" | "in-progress" | "done"
+  tasks: Task[]
 }
 
 export const JiraTasks = ({ title }: Props) => {
