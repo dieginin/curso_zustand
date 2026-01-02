@@ -1,11 +1,12 @@
 import { Accessibility, Heart, List, Lock, PawPrint } from "lucide-react"
-import { useBearStore, usePersonStore } from "../../stores"
+import { useBearStore, usePersonStore, useTaskStore } from "../../stores"
 
 import { WhiteCard } from "../../components"
 
 export const Dashboard = () => {
   const totalBears = useBearStore((state) => state.totalBears)
   const firstName = usePersonStore((state) => state.firstName)
+  const tasksLength = useTaskStore((state) => Object.keys(state.tasks).length)
 
   return (
     <>
@@ -29,7 +30,7 @@ export const Dashboard = () => {
         <WhiteCard centered>
           <List size={50} className='text-indigo-600' />
           <h2>Tareas</h2>
-          <p>Información</p>
+          <p>{tasksLength}</p>
         </WhiteCard>
 
         <WhiteCard centered>
