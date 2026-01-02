@@ -20,7 +20,7 @@ export const JiraPage = () => {
       <hr />
 
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        <JiraTasks title='Pendientes' value='pending' tasks={pendingTasks} />
+        <JiraTasks title='Pendientes' value='open' tasks={pendingTasks} />
 
         <JiraTasks
           title='Avanzando'
