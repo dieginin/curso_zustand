@@ -1,4 +1,4 @@
-import { CircleCheckBig, Ellipsis } from "lucide-react"
+import { CircleCheckBig, Plus } from "lucide-react"
 import type { Task, TaskStatus } from "../../interfaces"
 
 import { useState, type DragEvent } from "react"
@@ -15,8 +15,11 @@ interface Props {
 export const JiraTasks = ({ title, value, tasks }: Props) => {
   const isDragging = useTaskStore((state) => !!state.draggingTaskId)
   const onTaskDrop = useTaskStore((state) => state.onTaskDrop)
+  const addTask = useTaskStore((state) => state.addTask)
 
   const [onDragOver, setOnDragOver] = useState(false)
+
+  const handleAddTask = () => addTask("Task", value)
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -60,8 +63,8 @@ export const JiraTasks = ({ title, value, tasks }: Props) => {
           <h4 className='ml-4 text-xl font-bold text-navy-700'>{title}</h4>
         </div>
 
-        <button>
-          <Ellipsis />
+        <button onClick={handleAddTask}>
+          <Plus />
         </button>
       </div>
 
