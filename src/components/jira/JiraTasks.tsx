@@ -1,7 +1,7 @@
 import { CircleCheckBig, Ellipsis } from "lucide-react"
 import type { Task, TaskStatus } from "../../interfaces"
 
-import type { DragEvent } from "react"
+import { useState, type DragEvent } from "react"
 import { SingleTask } from "./SingleTask"
 import classNames from "classnames"
 import { useTaskStore } from "../../stores"
@@ -14,27 +14,32 @@ interface Props {
 
 export const JiraTasks = ({ title, value, tasks }: Props) => {
   const isDragging = useTaskStore((state) => !!state.draggingTaskId)
+  const [onDragOver, setOnDragOver] = useState(false)
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
-    console.log("onDragOver")
+    setOnDragOver(true)
   }
 
   const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
-    console.log("onDragLeave")
+    setOnDragOver(false)
   }
 
   const handleDropEvent = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
-    console.log("onDrop", value)
+    setOnDragOver(false)
   }
 
   return (
     <div
       className={classNames(
-        "text-black! border-4 relative flex flex-col rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]",
-        { "border-blue-500 border-dotted": isDragging }
+        "text-black! border-4 border-dotted relative flex flex-col rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full p-4! 3xl:p-![18px]",
+        {
+          "border-transparent": !(isDragging || onDragOver),
+          "border-blue-500": isDragging,
+          "border-green-500": onDragOver,
+        }
       )}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
