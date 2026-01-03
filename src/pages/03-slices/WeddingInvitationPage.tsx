@@ -1,5 +1,4 @@
 import { WhiteCard } from "../../components"
-import { useEffect } from "react"
 import { useWeddingBoundStore } from "../../stores/wedding"
 
 export const WeddingInvitationPage = () => {
@@ -7,7 +6,6 @@ export const WeddingInvitationPage = () => {
   const lastName = useWeddingBoundStore((state) => state.lastName)
   const guestCount = useWeddingBoundStore((state) => state.guestCount)
 
-  const date = useWeddingBoundStore((state) => state.eventDate)
   const getEventDate = useWeddingBoundStore((state) => state.getEventDate)
   const getEventTime = useWeddingBoundStore((state) => state.getEventTime)
 
@@ -16,11 +14,7 @@ export const WeddingInvitationPage = () => {
   const setGuestCount = useWeddingBoundStore((state) => state.setGuestCount)
 
   const setEventDate = useWeddingBoundStore((state) => state.setEventDate)
-
-  let eventDate = getEventDate()
-  useEffect(() => {
-    eventDate = getEventDate()
-  }, [date])
+  const setEventTime = useWeddingBoundStore((state) => state.setEventTime)
 
   return (
     <>
@@ -89,7 +83,7 @@ export const WeddingInvitationPage = () => {
                     type='date'
                     name='eventDate'
                     id='eventDate'
-                    value={eventDate}
+                    value={getEventDate()}
                     onChange={(e) => setEventDate(e.target.value)}
                   />
                 </div>
@@ -104,7 +98,7 @@ export const WeddingInvitationPage = () => {
                     name='eventTime'
                     id='eventTime'
                     value={getEventTime()}
-                    onChange={(e) => setEventDate(e.target.value)}
+                    onChange={(e) => setEventTime(e.target.value)}
                   />
                 </div>
               </div>
