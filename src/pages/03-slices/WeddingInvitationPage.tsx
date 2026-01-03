@@ -1,4 +1,5 @@
 import { WhiteCard } from "../../components"
+import { useEffect } from "react"
 import { useWeddingBoundStore } from "../../stores/wedding"
 
 export const WeddingInvitationPage = () => {
@@ -6,9 +7,20 @@ export const WeddingInvitationPage = () => {
   const lastName = useWeddingBoundStore((state) => state.lastName)
   const guestCount = useWeddingBoundStore((state) => state.guestCount)
 
+  const date = useWeddingBoundStore((state) => state.eventDate)
+  const getEventDate = useWeddingBoundStore((state) => state.getEventDate)
+  const getEventTime = useWeddingBoundStore((state) => state.getEventTime)
+
   const setFirstName = useWeddingBoundStore((state) => state.setFirstName)
   const setLastName = useWeddingBoundStore((state) => state.setLastName)
   const setGuestCount = useWeddingBoundStore((state) => state.setGuestCount)
+
+  const setEventDate = useWeddingBoundStore((state) => state.setEventDate)
+
+  let eventDate = getEventDate()
+  useEffect(() => {
+    eventDate = getEventDate()
+  }, [date])
 
   return (
     <>
@@ -73,7 +85,13 @@ export const WeddingInvitationPage = () => {
                   <label className='mb-3 block text-base font-medium text-[#07074D]'>
                     Fecha de evento
                   </label>
-                  <input type='date' name='eventDate' id='eventDate' />
+                  <input
+                    type='date'
+                    name='eventDate'
+                    id='eventDate'
+                    value={eventDate}
+                    onChange={(e) => setEventDate(e.target.value)}
+                  />
                 </div>
               </div>
               <div className='w-full px-3 sm:w-1/2'>
@@ -81,7 +99,13 @@ export const WeddingInvitationPage = () => {
                   <label className='mb-3 block text-base font-medium text-[#07074D]'>
                     Hora del evento
                   </label>
-                  <input type='time' name='eventTime' id='eventTime' />
+                  <input
+                    type='time'
+                    name='eventTime'
+                    id='eventTime'
+                    value={getEventTime()}
+                    onChange={(e) => setEventDate(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
