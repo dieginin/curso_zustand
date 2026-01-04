@@ -1,12 +1,17 @@
-import { Accessibility, Heart, List, Lock, PawPrint } from "lucide-react"
-import { useBearStore, usePersonStore, useTaskStore } from "../../stores"
-
-import { WhiteCard } from "../../components"
+import { Accessibility, Heart, Info, List, Lock, PawPrint } from "lucide-react"
+import { RequestInfo, WhiteCard } from "../../components"
+import {
+  useAuthStore,
+  useBearStore,
+  usePersonStore,
+  useTaskStore,
+} from "../../stores"
 
 export const Dashboard = () => {
   const totalBears = useBearStore((state) => state.totalBears)
   const firstName = usePersonStore((state) => state.firstName)
   const tasksLength = useTaskStore((state) => Object.keys(state.tasks).length)
+  const user = useAuthStore((state) => state.user)
 
   return (
     <>
@@ -42,7 +47,12 @@ export const Dashboard = () => {
         <WhiteCard centered>
           <Lock size={50} className='text-indigo-600' />
           <h2>Auth</h2>
-          <p>Información</p>
+          <p>{user?.fullName}</p>
+        </WhiteCard>
+
+        <WhiteCard className='col-span-3' centered>
+          <Info size={50} className='text-indigo-600' />
+          <RequestInfo />
         </WhiteCard>
       </div>
     </>
