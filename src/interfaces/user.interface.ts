@@ -1,4 +1,4 @@
-type Role = "user" | "admin" | "super"
+export type Role = "user" | "admin" | "super"
 
 export interface User {
   email: string

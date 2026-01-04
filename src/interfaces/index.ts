@@ -1,5 +1,5 @@
 export type { AuthStatus } from "./auth.interface"
 export type { LoginResponse } from "./login.response"
 export type { TaskStatus, Task } from "./task.interface"
-export type { User } from "./user.interface"
+export type { Role, User } from "./user.interface"
 export type { IconType } from "./utils.interface"
