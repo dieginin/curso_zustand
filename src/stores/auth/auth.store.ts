@@ -9,15 +9,15 @@ interface AuthState {
   user?: User
 
   login: (email: string, password: string) => Promise<void>
+  checkStatus: () => Promise<void>
 }
 
 const storeApi: StateCreator<AuthState> = (set) => ({
-  status: "unauthenticated",
+  status: "pending",
   token: undefined,
   user: undefined,
 
   login: async (email: string, password: string) => {
-    set({ status: "pending" })
     try {
       const { token, roles, ...data } = await AuthService.login(email, password)
 
@@ -25,6 +25,17 @@ const storeApi: StateCreator<AuthState> = (set) => ({
       set({ status: "authenticated", token, user })
     } catch {
       set({ status: "unauthenticated", token: undefined, user: undefined })
+      throw new Error("Unauthorized")
+    }
+  },
+  checkStatus: async () => {
+    try {
+      const { token, roles, ...data } = await AuthService.checkStatus()
+      const user = { ...data, roles: roles as Role[] }
+      set({ status: "authenticated", token, user })
+    } catch {
+      set({ status: "unauthenticated", token: undefined, user: undefined })
+      throw new Error("Unauthorized")
     }
   },
 })
