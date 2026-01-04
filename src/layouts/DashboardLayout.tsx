@@ -18,7 +18,7 @@ export const DashboardLayout = () => {
     )
   }
 
-  if (status == "unauthenticated") return <Navigate to='/auth/login' />
+  if (status == "unauthenticated") return <Navigate to='/auth/login' replace />
 
   return (
     <div className='bg-slate-200 overflow-y-scroll w-screen h-screen antialiased text-slate-900 selection:bg-blue-900 selection:text-white'>
