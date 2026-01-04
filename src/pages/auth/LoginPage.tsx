@@ -1,12 +1,10 @@
 import type { FormEvent } from "react"
 import { useAuthStore } from "../../stores"
-import { useNavigate } from "react-router"
 
 export const LoginPage = () => {
-  const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     // const { email, password, remember } = event.target as HTMLFormElement;
     const { email, password, remember } =
@@ -17,11 +15,9 @@ export const LoginPage = () => {
       }
     console.log(email.value, password.value, remember.checked)
 
-    await login(email.value, password.value)
-      .then(() => {
-        navigate("/dashboard")
-      })
-      .catch(() => console.log("No se pudo autenticar"))
+    login(email.value, password.value).catch(() =>
+      console.log("No se pudo autenticar")
+    )
 
     // email.value = ""
     // password.value = ""

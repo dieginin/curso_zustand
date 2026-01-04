@@ -1,8 +1,8 @@
 import { Gauge, Heart, Info, List, LogOut, PawPrint } from "lucide-react"
 
 import type { IconType } from "../../../interfaces"
-import { NavLink } from "react-router"
 import { SideMenuItem } from "./SideMenuItem"
+import { useAuthStore } from "../../../stores"
 
 interface MenuItem {
   title: string
@@ -45,6 +45,8 @@ const menuItems: MenuItem[] = [
 ]
 
 export const SideMenu = () => {
+  const logout = useAuthStore((state) => state.logout)
+
   return (
     <div
       id='menu'
@@ -83,7 +85,7 @@ export const SideMenu = () => {
         ))}
 
         {/* Logout */}
-        <NavLink to={"/auth/login"} className='mt-10'>
+        <a onClick={logout} className='mt-10'>
           <div>
             <LogOut />
           </div>
@@ -95,7 +97,7 @@ export const SideMenu = () => {
               Cerrar sesión
             </span>
           </div>
-        </NavLink>
+        </a>
       </nav>
     </div>
   )

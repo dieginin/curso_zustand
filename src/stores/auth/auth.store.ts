@@ -9,6 +9,7 @@ interface AuthState {
   user?: User
 
   login: (email: string, password: string) => Promise<void>
+  logout: () => void
   checkStatus: () => Promise<void>
 }
 
@@ -25,9 +26,10 @@ const storeApi: StateCreator<AuthState> = (set) => ({
       set({ status: "authenticated", token, user })
     } catch {
       set({ status: "unauthenticated", token: undefined, user: undefined })
-      throw new Error("Unauthorized")
     }
   },
+  logout: () =>
+    set({ status: "unauthenticated", token: undefined, user: undefined }),
   checkStatus: async () => {
     try {
       const { token, roles, ...data } = await AuthService.checkStatus()
@@ -35,7 +37,6 @@ const storeApi: StateCreator<AuthState> = (set) => ({
       set({ status: "authenticated", token, user })
     } catch {
       set({ status: "unauthenticated", token: undefined, user: undefined })
-      throw new Error("Unauthorized")
     }
   },
 })
