@@ -1,10 +1,9 @@
 type Role = "user" | "admin" | "super"
 
 export interface User {
-  id: string
   email: string
   fullName: string
+  id: string
   isActive: boolean
   roles: Role[]
-  token: string
 }
